@@ -3,7 +3,7 @@
 Superfluous is a Battlefield 2 server rcon administration program for Windows 2K/XP (also should work in Wine and 9x/ME), the server needs to be running BF2CC/ModManager scripts version 4.6 or later and PunkBuster be enabled.
 
 * [Home page](https://www.nisda.net/superfluous.html)
-* [readme.txt](bin/readme.txt)
+* [superfluous.txt](bin/superfluous.txt)
 
 ## Features
 
@@ -39,7 +39,7 @@ Compiled with Microsoft Visual Studio 6 which requires the Microsoft Platform SD
 
 ### Third Party
 
-* [Aggressive Optimizations](http://nopcode.com/AggressiveOptimize.shtml): Quest for a smaller EXE size.
+* [Aggressive Optimizations](https://web.archive.org/web/20061115204456fw_/http://www.nopcode.com/index.shtml): Quest for a smaller EXE size.
 * [DOS Stub](http://web.archive.org/web/20070124160645/http://its.mine.nu/html/coding/essays/stub.html): The 120 byte standard stub is far too big, the tiny one is 64 bytes which leaves room to use the extra bytes for something interesting.
 * [Windows Hook without external DLL](http://web.archive.org/web/20030824225005/rattlesnake.at.box.sk/newsread.php?newsid=193): Usually an external DLL is required for windows hooks however this is not the case.
 
@@ -47,4 +47,4 @@ Compiled with Microsoft Visual Studio 6 which requires the Microsoft Platform SD
 
 * During the release compile there's a bunch of warnings which can be safely ignored, they're part of making the smallest EXE possible.
 * The "Enter rcon password" icon is an Archon from Blizzard's Starcraft with a padlock from Windows XP. Archon..rcon.. Geddit? Ha ha!
-* As for the main icon, don't ask what icon you should use on IRC, ever. ~~[This](http://www.originalicons.com/)~~ is possibly where it's from.
+* As for the main icon, don't ask what icon you should use on IRC, ever. [This](https://web.archive.org/web/20070206211925/http://www.originalicons.com:80) is possibly where it's from.
