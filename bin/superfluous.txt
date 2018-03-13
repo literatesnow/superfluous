@@ -1,0 +1,204 @@
+Superfluous v1.04 - Copyright (C) 2005-2007 bliP
+Web: http://nisda.net
+Email: fiend [at] nisda [dot] net
+IRC: #nzgames irc.enterthegame.com
+Compiled: v1.0: 2006-02-02, v1.01: 2006-02-12, v1.04: 2007-01-21
+Concept: 2005-02-12
+
+Superfluous is a Battlefield 2 server administration program for Windows 2K/XP
+(also should work in Wine and Win9x/NT), the BF2 server requires BF2CC and
+ModManager scripts version 4.6 or later with PunkBuster enabled.
+
+Requirements
+
+  - Windows 2000/XP and above (untested on NT/ME/9x).
+  - Andale Mono font, can be downloaded from:
+      http://prdownloads.sourceforge.net/corefonts/andale32.exe?download
+
+Targets
+
+  - Commands which are associated with players only work for a "targeted"
+    player. When one player is matched with "match" or "smatch", they become
+    the target and these commands will only effect this player.
+    
+    For example, kicking a player called team_killer takes two steps:
+      match _killer
+      kick "Do not teamkill"
+
+    Only issue the kick command if this is the only player matched and
+    the target is announced.
+
+Hot Key
+
+  - Shift+F12 redirects all keyboard input to Superfluous and blocks keyboard
+    input to all other programs. Escape or Shift+F12 will set the keyboard back
+    to normal. With this mode, Battlefield 2 can be running with Superfluous on
+    a second monitor and commands be issued without the need to Alt+Tab.
+
+Commands
+
+  - connect <ip>[:<port>] [name]
+    Must be an IP address or an alias.
+    Name - Admin name.
+
+  - disconnect
+    Close connection to server.
+
+  - serverinfo
+    Print information about server.
+    
+    hostname - players+connecting/maximum-reserved map (next map) [moddir/mode]
+      ranked bf2cc_version map_time time_left time_limit autobalance worldsize
+      Team1 name players tickets start_tickets ticket_rate
+      Team2 name players tickets start_tickets ticket_rate
+
+  - match <name[|*]> [filter1[filterN]]
+    Full player match (uses BF2CC). Name is a sub string match, if no name is
+    specified, all players will be listed.
+
+      id name score/frags/deaths [kit] @ address hash
+      PC|OLSW|AMD|F|n team_name team:kills/damage/vehicle [vehicle_name(type)]
+        sc:captures/neutralizes/defends as:assists/total_assist ping profile_id
+
+      P - connected player
+      J - connecting player
+      C - commander
+      L - squad leader
+      S - squad member
+      W - lone wolf     
+      A - alive
+      M - man down
+      D - dead
+      F - has flag
+      n - spawn time
+      
+    Match results or all players can be filtered, use * for the match name to
+    filter on all players. These filters can be combined.
+
+      m - Minus Score
+      a - Alive
+      d - Dead
+      t - With one or more teamkills
+      v - Players who are in a vehicle
+      j - Connecting players
+      p - Connected players
+      c - Commander
+      l - Squad leader
+      s - Squad member
+      w - Lone wolf
+      h - High ping (greater than 150)
+
+    For example:
+
+      Match all players with bob somewhere in their name:
+        match bob
+      Match all players with the tag of moo and cow somewhere in their name:
+        match "moo cow"
+      Match all players who have a minus score or teamkilled:
+        match * mt
+      Match all players who are commander:
+        match * c
+      Match all players with ABC somewhere in their name, in a squad and dead:
+        match abc sd
+
+  - smatch <name>
+    Simple player match (uses admin.listPlayers). Name is a sub string match,
+    if no name is specified, all players will be listed.
+
+      id name @ address hash
+
+  - swap
+    Change team of targeted player.
+
+  - kick <"global reason">
+    Kick targeted player from server, reason must be in quotes.
+    Uses PB_SV_Kick.
+
+  - ban <"global reason">
+    Ban targeted player from server, reason must be in quotes.
+    Uses PB_SV_Kick and admin.addKeyToBanList (or admin.addAddressToBanList if
+    there's no hash).
+
+  - sayall <"message">
+    Global message to server, must be in quotes.
+
+  - serverchat [[*]time]
+    Display all player and server chat. Time is how often new chat is retrieved
+    in seconds, if time is not specified, the default is 10. If the * character
+    prefixes time, the previous chat history will not be shown.
+
+  - raw
+    Send a raw command to the server, the result is printed. Hex characters are
+    accepted as \xCC. Commands must start with \x02 and end with \x0A.
+    For example: \x02bf2cc pl\x0A
+
+  - /<command>
+    Commands which start with a slash are sent as exec <command>.
+    For example:
+      /sv.serverName
+
+  - about
+    About Superfluous.
+
+Superfluous.cfg
+
+  - Aliases are in the form of key=value, there should be no whitespace until
+    after the equals sign.
+
+  - Servers can be aliased and used via: connect testserver
+    As the rcon password is plain text, it will prompted for if not specified.
+
+    testserver=127.0.0.1:16567
+    testserver_host_name=Local Server
+    testserver_rcon_password=rcon_password
+    testserver_admin_name=admin_name
+
+  - Commands can be aliased, c can be used to connect, ls will run listPlayers,
+    kicktk will issue a kick command.
+
+    c=connect
+    ls=/admin.listPlayers
+    kicktk=kick "Killing teammates"
+
+  - Other settings:
+    _admin_name: default admin name and used if the admin name is not
+                 specified in the server alias.
+    _kick_prefix: text before kick message, default is "Kicking"
+    _ban_prefix: text before ban message, default is "Banning"
+    _separator: separator in kick/ban messages
+    _resolve_ip: whether or not to resolve IP address when displaying players,
+                 set to true or false to enabled/disable
+                 WARNING: if an IP address cannot be resolved then Superfluous
+                 WILL FREEZE UNTIL IT TIMES OUT, IT HAS NOT CRASHED. Large
+                 lists of players may take a long time to display with this
+                 option enabled.
+
+Notes
+
+  - Command and parameter input parsing is not very tolerant and all parameters
+    which have spaces in them must be enclosed in quotes.
+
+  - Server information is not automatically updated, if the map changes then
+    player's team may be reported incorrectly until the serverinfo command
+    is issued.
+
+  - There is a high chance that Superfluous will work under Linux with Wine,
+    the only extra required DLL is shlwapi.dll which is part of Windows.
+
+Images
+
+  - Main Icon: Unknown, please contact me if you know.
+  - Server Dialog Icon: Portions by Blizzard and Microsoft.
+
+Please send all questions, bug reports, comments and suggestions
+to the email address provided above.
+
+Disclaimer:
+ANY USE BY YOU OF THE SOFTWARE IS AT YOUR OWN RISK. THE SOFTWARE IS
+PROVIDED FOR USE "AS IS" WITHOUT WARRANTY OF ANY KIND. THIS SOFTWARE
+IS RELEASED AS "FREEWARE". REDISTRIBUTION IS ONLY ALLOWED IF THE
+SOFTWARE IS UNMODIFIED, NO FEE IS CHARGED FOR THE SOFTWARE, DIRECTLY
+OR INDIRECTLY WITHOUT THE EXPRESS PERMISSION OF THE AUTHOR.
+
+-bliP
+"Because I Can."

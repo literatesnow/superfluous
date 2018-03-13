@@ -1,0 +1,91 @@
+/*
+  Copyright (C) 2006-2007 Chris Cuthbertson
+
+  This file is part of Superfluous.
+
+  Superfluous is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  Superfluous is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with Superfluous.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include "superfluous.h"
+
+IDI_MAIN_ICON ICON DISCARDABLE "superfluous.ico"
+IDI_INPUTRCON_ICON ICON DISCARDABLE "archon.ico"
+
+IDD_MAIN DIALOG 1, 1, 260, 200
+STYLE WS_OVERLAPPEDWINDOW | DS_CENTER
+CAPTION "Superfluous"
+FONT 10, "Andale Mono"
+BEGIN
+  COMBOBOX      IDC_MAIN_INPUT, 0, 0, 0, 0, WS_TABSTOP | CBS_DROPDOWN | CBS_AUTOHSCROLL
+  DEFPUSHBUTTON "<", IDC_MAIN_SEND, 0, 0, 10, 0, WS_TABSTOP
+  EDITTEXT      IDC_MAIN_CONSOLE, 0, 0, 0, 0, WS_TABSTOP | WS_VSCROLL | ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN | ES_READONLY
+END
+
+IDD_INPUTRCON DIALOG DISCARDABLE  0, 0, 170, 78
+STYLE DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Superfluous"
+FONT 8, "Andale Mono"
+BEGIN
+    GROUPBOX      "Enter rcon password", IDC_STATIC, 4, 4, 162, 48
+    EDITTEXT      IDC_INPUTRCON_EDIT, 40, 24, 118, 12, ES_PASSWORD | ES_AUTOHSCROLL
+    DEFPUSHBUTTON "&OK", IDOK, 47, 58, 36, 14, WS_GROUP
+    PUSHBUTTON    "&Cancel", IDCANCEL, 87, 58, 36, 14, WS_GROUP
+    ICON          IDI_INPUTRCON_ICON, IDD_INPUTRCON, 12, 18, 32, 32, WS_BORDER
+END
+
+IDD_ABOUT DIALOG DISCARDABLE  0, 0, 168, 79
+STYLE DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "About Superfluous"
+FONT 10, "Andale Mono"
+BEGIN
+  DEFPUSHBUTTON "&OK", IDOK, 71, 62, 26, 14
+  GROUPBOX      "About", IDC_STATIC, 4, 4, 160, 53
+  LTEXT         "", IDC_ABOUT_TEXT, 41, 15, 115, 34, WS_GROUP
+  ICON          IDI_MAIN_ICON, IDD_ABOUT, 14, 14, 20, 23, WS_BORDER
+END
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION VER_FILEVERSION
+PRODUCTVERSION VER_PRODUCTVERSION
+FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+#ifdef _DEBUG
+FILEFLAGS VS_FF_DEBUG
+#else
+FILEFLAGS 0x0L
+#endif
+FILEOS VOS__WINDOWS32
+FILETYPE VFT_APP
+FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904E4" /* LANG_ENGLISH/SUBLANG_ENGLISH_US, Ansi CP */
+    BEGIN
+      VALUE "FileVersion", VER_VERSION "\0"
+      VALUE "FileDescription", VER_DESCRIPTION "\0"
+/*      VALUE "InternalName", VER_INTERNALNAME "\0" */
+      VALUE "LegalCopyright", VER_COPYRIGHT "\0"
+/*      VALUE "ProductName", VER_PRODUCTNAME "\0" */
+    END
+  END
+#if 0
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x409, 1200
+  END
+#endif
+END
+
